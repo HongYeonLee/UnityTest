@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 moveTo = new Vector3(horizontalInput, verticalInput, 0f); // vector3라는 구조체의 이름은 moveTo이며 x, y, z 방향으로 어떻게 움직일지를 입력받은 값에 따라 움직이는 걸 정의
+        Vector3 moveTo = new Vector3(horizontalInput, 0f, 0f); // vector3라는 구조체의 이름은 moveTo이며 x, y, z 방향으로 어떻게 움직일지를 입력받은 값에 따라 움직이는 걸 정의
         transform.position += moveTo * moveSpeed * Time.deltaTime;
 
     //     Vector3 moveTo = new Vector3(moveSpeed * Time.deltaTime, 0 , 0); // moveSpeed는 기본적으로 양수라 오른쪽으로 이동함
