@@ -6,7 +6,9 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] enemies; //유니티내에 enemies라는 배열을 만들고 거기에 7개의 에너미를 넣어둠
-
+    
+    [SerializeField]
+    private GameObject boss;
     private float[] arrPosX = {-2.2f, -1.1f, 0f, 1.1f, 2.2f}; //몹들이 나올 x좌표를 배열로 저장함
     
     [SerializeField]
@@ -21,6 +23,10 @@ public class EnemySpawner : MonoBehaviour
     {
         StartCoroutine("EnemyRoutine"); //StartCoroutine을 통해 EnemyRoutine이라는 동작이 실햄됨
         //Coroutine은 기다리는 동작과 동시에 다른 동작을 할 수 있게함
+    }
+
+    public void StopEnemyRoutine(){ //게임 매니저에서 호출하도록 퍼블릭으로 선언
+        StopCoroutine("EnemyRoutine");
     }
 
     IEnumerator EnemyRoutine()
@@ -40,10 +46,15 @@ public class EnemySpawner : MonoBehaviour
 
             spawnCount++; // 에너미가 한번 생성될 때마다 카운트를 올림
             //생성된 횟수가 10단위로 커질 때마다 에너미의 종류를 한 단계씩 높임 + 속도도 높임
-            if(spawnCount % 10 == 0) 
-            {
+            if(spawnCount % 10 == 0){
                 enemyIndex += 1;
                 moveSpeed += 2;
+            }
+
+            if (enemyIndex >= enemies.Length){
+                SpawnBoss();
+                enemyIndex = 0; //난이도 조절을 위해 일반 에너미들을 다시 1단계부터로 초기화함
+                moveSpeed = 5f;
             }
 
             yield return new WaitForSeconds(spawnInterval); //spawnIntervla 정도 기다렸다가 다시 while문돌림 
@@ -56,21 +67,24 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(posX, transform.position.y, transform.position.z); //객체가 생성되는 위치 (x, y, z)
         
-        if (Random.Range(0, 5) == 0) // 20%의 확률로 한단계 높은 에너미가 나오도록 설정
+        if (Random.Range(0, 5) == 0) // 20%의 확률로 한단계 높은 에너미가 나오도록 설정, 0, 1, 2, 3, 4 중 0이 나올 확률
         {
             index += 1;
         }
 
         if (index >= enemies.Length) // 인덱스가 너무 높아져서 생성할 에너미가 없는 경우 방지
         {
-            index -= enemies.Length -1;
+            index -= enemies.Length -6; 
         }
 
         // 생성된 객체를 enemyObject에 넘음
         GameObject enemyObject = Instantiate(enemies[index], spawnPos, Quaternion.identity); 
-
         //Enemy라는 클래스로부터 만들어진 객체 enemy에 Enemy라는 컴포넌트를 얻어옴
         Enemy enemy = enemyObject.GetComponent<Enemy>(); 
         enemy.SetMoveSpeed(moveSpeed);
+    }
+
+    void SpawnBoss(){
+        Instantiate(boss, transform.position, Quaternion.identity);
     }
 }

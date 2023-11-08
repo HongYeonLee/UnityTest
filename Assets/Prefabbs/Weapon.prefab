@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 151314473453116470}
   - component: {fileID: 151314473453116617}
   - component: {fileID: 151314473453116616}
+  - component: {fileID: -1221402390305734618}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Weapon
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1148979058, guid: 12bee3b1a83157347a57a4aefd414b6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,3 +99,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  damage: 1
+--- !u!58 &-1221402390305734618
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151314473453116619}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0108432025, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.20582347
