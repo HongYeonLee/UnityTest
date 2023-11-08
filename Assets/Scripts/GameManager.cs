@@ -74,7 +74,16 @@ public class GameManager : MonoBehaviour
         gameWinPanel.SetActive(true); //비활성화된 게임윈패널을 활성화시킴
     }
 
-    public void PlayAgain(){
+    public void PlayAgain(){ //게임 다시 시작 버튼
         SceneManager.LoadScene("UnityTest");
     }
+
+public void EndGame() //게임 종료 버튼
+{
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
+}
 }
